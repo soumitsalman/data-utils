@@ -76,6 +76,23 @@ func SafeSlice[T any](array []T, start, noninclusive_end int) []T {
 	return array[min(start, len(array)):min(noninclusive_end, len(array))]
 }
 
+func MapToArray[TKey comparable, TValue any](list map[TKey]TValue) ([]TKey, []TValue) {
+	keys := make([]TKey, 0, len(list))
+	values := make([]TValue, 0, len(list))
+	for key, val := range list {
+		keys = append(keys, key)
+		values = append(values, val)
+	}
+	return keys, values
+}
+
+func AppendMaps[TKey comparable, TValue any](to_map, from_map map[TKey]TValue) map[TKey]TValue {
+	for key, val := range from_map {
+		to_map[key] = val
+	}
+	return to_map
+}
+
 func PrintTable[T any](contents []T, headers []string, fields func(item *T) []string) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetBorder(true)
