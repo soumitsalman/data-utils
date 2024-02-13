@@ -1,0 +1,1 @@
+general utility function for handling data and arrays of data
